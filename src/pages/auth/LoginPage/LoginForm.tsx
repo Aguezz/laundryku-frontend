@@ -1,36 +1,48 @@
-import { Formik, Field, FormikHelpers } from 'formik';
+import { Field, Formik, FormikHelpers, FormikProps } from 'formik';
+import React from 'react';
 
-export type LoginFormValues = {
-  username: string;
+export interface LoginFormValues {
+  invalid?: string;
+  identifier: string;
   password: string;
-};
+}
 
 export type LoginValidationError = {
-  username?: string;
+  identifier?: string;
   password?: string;
+  invalid?: string;
 };
 
 type LoginFormProps = {
+  formRef: React.RefObject<FormikProps<LoginFormValues>>;
   onSubmit: (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
   ) => void;
 };
 
-function LoginForm({ onSubmit }: LoginFormProps): JSX.Element {
-  const initialValues: LoginFormValues = { username: '', password: '' };
+function LoginForm({ formRef, onSubmit }: LoginFormProps): JSX.Element {
+  const initialValues: LoginFormValues = { identifier: '', password: '' };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
-      {({ handleSubmit, errors }) => (
+    <Formik
+      initialValues={initialValues}
+      innerRef={formRef}
+      onSubmit={onSubmit}
+    >
+      {({ handleSubmit, isSubmitting, errors }) => (
         <form onSubmit={handleSubmit}>
-          <Field name="username" />
-          {errors?.username && <span>{errors.username}</span>}
+          {errors?.invalid && <span>{errors.invalid}</span>}
 
-          <Field name="username" />
-          {errors?.username && <span>{errors.username}</span>}
+          <Field name="identifier" disabled={isSubmitting} />
+          {errors?.identifier && <span>{errors.identifier}</span>}
 
-          <button type="submit">Login</button>
+          <Field name="password" disabled={isSubmitting} />
+          {errors?.password && <span>{errors.password}</span>}
+
+          <button type="submit" disabled={isSubmitting}>
+            Login
+          </button>
         </form>
       )}
     </Formik>

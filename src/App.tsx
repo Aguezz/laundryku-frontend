@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import LoginPage from './pages/auth/LoginPage';
 
 function App(): JSX.Element {
