@@ -17,10 +17,24 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "jsx-a11y", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "@typescript-eslint",
+    "prettier",
+    "sort-imports-es6-autofix"
+  ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "sort-imports-es6-autofix/sort-imports-es6": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
     "prettier/prettier": "error"
   }
 }
