@@ -1,28 +1,14 @@
 import { FormikHelpers, FormikProps } from 'formik';
-import { gql, useMutation } from '@apollo/client';
 import { sanitizeValidationError } from '../../../utils/errorHandler';
+import { useAppSelector } from '../../../hooks';
 import { useCallback, useEffect, useRef } from 'react';
 import LoginForm, { LoginFormValues, LoginValidationError } from './LoginForm';
-
-const LOGIN = gql`
-  mutation Login($identifier: String!, $password: String!) {
-    login(input: { identifier: $identifier, password: $password }) {
-      jwt
-      user {
-        id
-        username
-        email
-        role {
-          type
-          name
-        }
-      }
-    }
-  }
-`;
+import useLoginHook from './useLoginHook';
 
 function LoginPage(): JSX.Element {
-  const [login, { data, error }] = useMutation(LOGIN);
+  const user = useAppSelector((state) => state.user);
+
+  const { loginMutation, loginOptions } = useLoginHook();
 
   const formRef = useRef<FormikProps<LoginFormValues>>(null);
 
@@ -32,7 +18,7 @@ function LoginPage(): JSX.Element {
       actions: FormikHelpers<LoginFormValues>,
     ) => {
       try {
-        await login({
+        await loginMutation({
           variables: {
             identifier: values.identifier,
             password: values.password,
@@ -40,31 +26,27 @@ function LoginPage(): JSX.Element {
         });
       } catch (err) {
         /** */
+        console.log(err);
       }
 
       actions.setSubmitting(false);
     },
-    [],
+    [loginMutation],
   );
 
   useEffect(() => {
-    if (data) {
-      // Do code login process successfully
-    }
-  }, [data]);
-
-  useEffect(() => {
     if (!formRef.current) return;
-    const err = error?.graphQLErrors[0];
+    const err = loginOptions.error?.graphQLErrors[0];
 
     if (err) {
       const errors = sanitizeValidationError<LoginValidationError>(err);
       formRef.current.setErrors(errors);
     }
-  }, [error]);
+  }, [loginOptions.error]);
 
   return (
     <>
+      {user.isAuthenticated && <p>Logged In</p>}
       <LoginForm formRef={formRef} onSubmit={onSubmit} />
     </>
   );
