@@ -1,5 +1,5 @@
 const config = {
-  GRAPHQL_URI: process.env.GRAPHQL_URI || 'http://localhost:1337/graphql',
+  GRAPHQL_URI: 'https://laundryku-backend.herokuapp.com/graphql',
 };
 
 export default config;
