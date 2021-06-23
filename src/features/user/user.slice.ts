@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../store';
 import User from '../../models/user.model';
 
 interface UserState {
@@ -30,11 +29,5 @@ export const userSlice = createSlice({
 });
 
 export const { logout, setUser } = userSlice.actions;
-
-export const isAuthenticated = (state: RootState): boolean =>
-  state.user.isAuthenticated;
-
-export const getUser = (state: RootState): User | Record<string, never> =>
-  state.user.user;
 
 export default userSlice.reducer;
