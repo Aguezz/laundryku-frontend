@@ -6,10 +6,11 @@ import { store } from './store';
 import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import config from './config';
 import reportWebVitals from './reportWebVitals';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:1337/graphql',
+  uri: config.GRAPHQL_URI,
   cache: new InMemoryCache(),
 });
 
