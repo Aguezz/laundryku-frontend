@@ -1,4 +1,5 @@
 import './index.css';
+import '@fontsource/roboto';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
