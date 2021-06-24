@@ -6,6 +6,10 @@ export const ME = gql`
       id
       username
       email
+      name
+      phone_number
+      profile_photo
+      address
       role {
         type
         name

@@ -8,6 +8,10 @@ export const LOGIN = gql`
         id
         username
         email
+        name
+        phone_number
+        profile_photo
+        address
         role {
           type
           name
