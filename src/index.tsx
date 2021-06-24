@@ -3,6 +3,8 @@ import '@fontsource/roboto';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { blue } from '@material-ui/core/colors';
 import { store } from './store';
 import App from './App';
 import React from 'react';
@@ -15,13 +17,23 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: blue[500],
+    },
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Provider store={store}>
-        <Router>
-          <App />
-        </Router>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <App />
+          </Router>
+        </ThemeProvider>
       </Provider>
     </ApolloProvider>
   </React.StrictMode>,
