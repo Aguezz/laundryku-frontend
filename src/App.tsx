@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import { useEffect } from 'react';
 import AutoRedirect from './components/Route/AutoRedirect';
+import Container from '@material-ui/core/Container';
 import GuestRoute from './components/Route/GuestRoute';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
@@ -14,19 +15,21 @@ function App(): JSX.Element {
   useEffect(() => checkToken(), [checkToken]);
 
   return (
-    <Switch>
-      <Route exact path="/" component={AutoRedirect} />
-      <Route exact path="/auth/logout" component={LogoutPage} />
+    <Container maxWidth="xs">
+      <Switch>
+        <Route exact path="/" component={AutoRedirect} />
+        <Route exact path="/auth/logout" component={LogoutPage} />
 
-      <GuestRoute exact path="/auth/login" component={LoginPage} />
+        <GuestRoute exact path="/auth/login" component={LoginPage} />
 
-      <PrivateRoute
-        exact
-        path="/home"
-        allow={['admin', 'customer', 'employee']}
-        component={HomePage}
-      />
-    </Switch>
+        <PrivateRoute
+          exact
+          path="/home"
+          allow={['admin', 'customer', 'employee']}
+          component={HomePage}
+        />
+      </Switch>
+    </Container>
   );
 }
 

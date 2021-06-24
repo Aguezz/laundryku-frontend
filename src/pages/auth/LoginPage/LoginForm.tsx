@@ -1,5 +1,11 @@
-import { Field, Formik, FormikHelpers, FormikProps } from 'formik';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
+import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import useLoginStyles from './useLoginStyles';
 
 export interface LoginFormValues {
   invalid?: string;
@@ -23,6 +29,7 @@ type LoginFormProps = {
 
 function LoginForm({ formRef, onSubmit }: LoginFormProps): JSX.Element {
   const initialValues: LoginFormValues = { identifier: '', password: '' };
+  const classes = useLoginStyles();
 
   return (
     <Formik
@@ -30,19 +37,76 @@ function LoginForm({ formRef, onSubmit }: LoginFormProps): JSX.Element {
       innerRef={formRef}
       onSubmit={onSubmit}
     >
-      {({ handleSubmit, isSubmitting, errors }) => (
-        <form onSubmit={handleSubmit}>
-          {errors?.invalid && <span>{errors.invalid}</span>}
+      {({
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        isSubmitting,
+        errors,
+        values,
+      }) => (
+        <form onSubmit={handleSubmit} className={classes.form}>
+          {errors?.invalid && <Alert severity="error">{errors.invalid}</Alert>}
 
-          <Field name="identifier" disabled={isSubmitting} />
-          {errors?.identifier && <span>{errors.identifier}</span>}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="identifier"
+            label="Username or E-mail"
+            name="identifier"
+            value={values.identifier}
+            autoComplete="identifier"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            autoFocus
+            disabled={isSubmitting}
+            error={!!errors?.identifier}
+            helperText={errors?.identifier}
+          />
 
-          <Field name="password" disabled={isSubmitting} />
-          {errors?.password && <span>{errors.password}</span>}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            type="password"
+            id="password"
+            label="Password"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            autoFocus
+            disabled={isSubmitting}
+            error={!!errors?.password}
+            helperText={errors?.password}
+          />
 
-          <button type="submit" disabled={isSubmitting}>
-            Login
-          </button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+            fullWidth
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </form>
       )}
     </Formik>

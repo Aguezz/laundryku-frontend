@@ -1,13 +1,17 @@
 import { FormikHelpers, FormikProps } from 'formik';
 import { sanitizeValidationError } from '../../../utils/errorHandler';
-import { useAppSelector } from '../../../hooks';
 import { useCallback, useEffect, useRef } from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import Copyright from './Copyright';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LoginForm, { LoginFormValues, LoginValidationError } from './LoginForm';
+import Typography from '@material-ui/core/Typography';
 import useLoginHook from './useLoginHook';
+import useLoginStyles from './useLoginStyles';
 
 function LoginPage(): JSX.Element {
-  const user = useAppSelector((state) => state.user);
-
+  const classes = useLoginStyles();
   const { loginMutation, loginOptions } = useLoginHook();
 
   const formRef = useRef<FormikProps<LoginFormValues>>(null);
@@ -45,10 +49,16 @@ function LoginPage(): JSX.Element {
   }, [loginOptions.error]);
 
   return (
-    <>
-      {user.isAuthenticated && <p>Logged In</p>}
+    <div className={classes.paper}>
+      <Avatar className={classes.avatar}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography variant="h5">Sign in</Typography>
       <LoginForm formRef={formRef} onSubmit={onSubmit} />
-    </>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </div>
   );
 }
 
