@@ -2,6 +2,7 @@ import { Route, Switch } from 'react-router-dom';
 import { useEffect } from 'react';
 import AutoRedirect from './components/Route/AutoRedirect';
 import Container from '@material-ui/core/Container';
+import ForgotPasswordPage from './pages/auth/ForgotPassword';
 import GuestRoute from './components/Route/GuestRoute';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
@@ -21,6 +22,11 @@ function App(): JSX.Element {
         <Route exact path="/auth/logout" component={LogoutPage} />
 
         <GuestRoute exact path="/auth/login" component={LoginPage} />
+        <GuestRoute
+          exact
+          path="/auth/forgot-password"
+          component={ForgotPasswordPage}
+        />
 
         <PrivateRoute
           exact
