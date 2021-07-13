@@ -22,7 +22,7 @@ function useLoginHook() {
       setAuthorizationToken(client, jwt);
       dispatch(setUser(user as User));
 
-      history.push('/home');
+      history.push('/');
     }
   }, [client, dispatch, history, loginOptions.data]);
 

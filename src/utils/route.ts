@@ -3,11 +3,11 @@ export type availableRole = 'admin' | 'employee' | 'customer';
 export function getReferrerRoute(role: availableRole | undefined): string {
   switch (role) {
     case 'admin':
-      return '/home';
+      return '/employee';
     case 'employee':
-      return '/home';
+      return '/employee';
     case 'customer':
-      return '/home';
+      return '/customer';
     default:
       return '/auth/logout';
   }

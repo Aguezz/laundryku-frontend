@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import appReducer from './features/app/app.slice';
 import userReducer from './features/user/user.slice';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,7 +16,7 @@ function getPersistedState(): any {
 }
 
 export const store = configureStore({
-  reducer: { user: userReducer },
+  reducer: { app: appReducer, user: userReducer },
   preloadedState: getPersistedState(),
 });
 

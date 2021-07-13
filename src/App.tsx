@@ -1,40 +1,69 @@
 import { Route, Switch } from 'react-router-dom';
-import { useEffect } from 'react';
-import AutoRedirect from './components/Route/AutoRedirect';
+import { Suspense, useEffect } from 'react';
+import {
+  customerRoutes,
+  employeeRoutes,
+  guestRoutes,
+  publicRoutes,
+} from './routes';
+import { useAppSelector } from './hooks';
 import Container from '@material-ui/core/Container';
-import ForgotPasswordPage from './pages/auth/ForgotPassword';
+import CustomerNavigation from './components/CustomerNavigation';
 import GuestRoute from './components/Route/GuestRoute';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/auth/LoginPage';
-import LogoutPage from './pages/auth/LogoutPage';
 import PrivateRoute from './components/Route/PrivateRoute';
 import useAuth from './hooks/useAuth';
 
 function App(): JSX.Element {
   const { checkToken } = useAuth();
+  const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => checkToken(), [checkToken]);
 
   return (
-    <Container maxWidth="xs">
-      <Switch>
-        <Route exact path="/" component={AutoRedirect} />
-        <Route exact path="/auth/logout" component={LogoutPage} />
+    <Container maxWidth="xs" className="pb-24">
+      <Suspense fallback={<>Loading...</>}>
+        <Switch>
+          {publicRoutes.map(({ exact, path, component }, index) => (
+            <Route
+              key={index}
+              exact={exact}
+              path={path}
+              component={component}
+            />
+          ))}
 
-        <GuestRoute exact path="/auth/login" component={LoginPage} />
-        <GuestRoute
-          exact
-          path="/auth/forgot-password"
-          component={ForgotPasswordPage}
-        />
+          {guestRoutes.map(({ exact, path, component }, index) => (
+            <GuestRoute
+              key={index}
+              exact={exact}
+              path={path}
+              component={component}
+            />
+          ))}
 
-        <PrivateRoute
-          exact
-          path="/home"
-          allow={['admin', 'customer', 'employee']}
-          component={HomePage}
-        />
-      </Switch>
+          {employeeRoutes.map(({ exact, path, component }, index) => (
+            <PrivateRoute
+              allow={['admin', 'employee']}
+              key={index}
+              exact={exact}
+              path={path}
+              component={component}
+            />
+          ))}
+
+          {customerRoutes.map(({ exact, path, component }, index) => (
+            <PrivateRoute
+              allow={['customer']}
+              key={index}
+              exact={exact}
+              path={path}
+              component={component}
+            />
+          ))}
+        </Switch>
+
+        {user.role?.type === 'customer' && <CustomerNavigation />}
+      </Suspense>
     </Container>
   );
 }
