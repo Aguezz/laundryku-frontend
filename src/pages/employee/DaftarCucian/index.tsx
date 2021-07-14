@@ -5,6 +5,7 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import Navbar from '../../../components/Navbar';
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
 import Table from '@material-ui/core/Table';
@@ -23,9 +24,10 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(menyerahkan: string, status: 0 | 1 | 2 | 3) {
+function createData(menyerahkan: string, nama: string, status: 0 | 1 | 2 | 3) {
   return {
     menyerahkan,
+    nama,
     status,
     jumlahCucian: 9,
     harga: 31000,
@@ -41,6 +43,7 @@ function createData(menyerahkan: string, status: 0 | 1 | 2 | 3) {
 interface Props {
   row: {
     menyerahkan: string;
+    nama: string;
     status: 0 | 1 | 2 | 3;
     jumlahCucian: number;
     harga: number;
@@ -58,7 +61,7 @@ function Row(props: Props) {
   const classes = useRowStyles();
 
   return (
-    <React.Fragment>
+    <>
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton
@@ -71,6 +74,9 @@ function Row(props: Props) {
         </TableCell>
         <TableCell align="center" className="whitespace-nowrap">
           {row.menyerahkan}
+        </TableCell>
+        <TableCell align="center" className="whitespace-nowrap">
+          {row.nama}
         </TableCell>
         <TableCell align="center">{row.jumlahCucian}</TableCell>
         <TableCell align="center">
@@ -88,16 +94,14 @@ function Row(props: Props) {
           {row.harga.toLocaleString().replace(',', '.')}
         </TableCell>
         <TableCell>
-          {row.status === 3 && (
-            <Button
-              variant="contained"
-              size="small"
-              color="secondary"
-              className="whitespace-nowrap"
-            >
-              <strong>Minta Antarkan</strong>
-            </Button>
-          )}
+          <Button
+            variant="contained"
+            size="small"
+            color="secondary"
+            className="whitespace-nowrap"
+          >
+            <strong>Ubah Status</strong>
+          </Button>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -139,21 +143,24 @@ function Row(props: Props) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
 }
 
 const rows = [
-  createData('2021-07-30', 0),
-  createData('2021-07-22', 1),
-  createData('2021-07-20', 2),
-  createData('2021-07-20', 3),
+  createData('2021-07-30', 'Agus Stiawan', 0),
+  createData('2021-07-22', 'Harun Baharuddin', 1),
+  createData('2021-07-20', 'Kholilur Rohman', 2),
+  createData('2021-07-20', 'Novita Khasanah', 3),
+  createData('2021-07-20', 'Syafrina Dyah K.', 3),
 ];
 
-export default function CustomerLaundry(): JSX.Element {
+export default function EmployeeDaftarCucian(): JSX.Element {
   return (
-    <div className="pt-8">
-      <h1 className="text-xl text-center font-semibold">Cucian Saya</h1>
+    <div className="pt-17">
+      <Navbar link="/employee" title="Daftar Cucian" />
+
+      <h1 className="text-xl text-center font-semibold">Daftar Cucian</h1>
 
       <TableContainer
         component={Paper}
@@ -166,6 +173,9 @@ export default function CustomerLaundry(): JSX.Element {
               <TableCell />
               <TableCell align="center">
                 <strong>Tanggal</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Nama</strong>
               </TableCell>
               <TableCell align="center">
                 <strong>Cucian</strong>

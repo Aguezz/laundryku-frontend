@@ -6,7 +6,11 @@ import CustomerHistory from'./pages/customer/History'
 import CustomerHome from'./pages/customer/Home'
 import CustomerLaundry from'./pages/customer/Laundry'
 import CustomerMauNyuci from'./pages/customer/MauNyuci'
+import EmployeeAccount from'./pages/employee/Account'
+import EmployeeDaftarCucian from './pages/employee/DaftarCucian'
 import EmployeeHome from'./pages/employee/Home'
+import EmployeeJemput from './pages/employee/Jemput'
+import EmployeeTambahCucian from './pages/employee/TambahCucian'
 import ForgotPasswordPage from'./pages/auth/ForgotPassword'
 import LoginPage from'./pages/auth/LoginPage'
 import LogoutPage from'./pages/auth/LogoutPage'
@@ -29,6 +33,10 @@ export const guestRoutes: Array<Route> = [
 
 export const employeeRoutes: Array<Route> = [
   { path: '/employee', exact: true, component: EmployeeHome },
+  { path: '/employee/account', exact: true, component: EmployeeAccount },
+  { path: '/employee/daftar-cucian', exact: true, component: EmployeeDaftarCucian },
+  { path: '/employee/tambah-cucian', exact: true, component: EmployeeTambahCucian },
+  { path: '/employee/jemput', exact: true, component: EmployeeJemput },
 ];
 
 export const customerRoutes: Array<Route> = [

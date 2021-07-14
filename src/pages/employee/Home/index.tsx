@@ -65,22 +65,22 @@ const style = {
 
 const links = [
   [
-    '/',
+    '/employee/jemput',
     'Penjemputan',
     <LocalShippingIcon key={0} className="block" style={style} />,
   ],
   [
-    '/',
+    '/employee/tambah-cucian',
     'Tambah Cucian',
     <LocalLaundryServiceTwoToneIcon key={1} className="block" style={style} />,
   ],
   [
-    '/',
+    '/employee/daftar-cucian',
     'Daftar Cucian',
     <ListAltTwoToneIcon key={2} className="block" style={style} />,
   ],
   [
-    '/',
+    '/employee/account',
     'Pengaturan',
     <SettingsApplicationsTwoToneIcon key={3} className="block" style={style} />,
   ],
@@ -117,11 +117,12 @@ function EmployeeHome(): JSX.Element {
       </div>
 
       <div className="grid grid-cols-2 grid-rows-4 gap-3 mt-5">
-        {links.map(([, name, icon], index) => (
+        {links.map(([link, name, icon], index) => (
           <Card
             key={index}
             variant="outlined"
             className="shadow-lg bg-gray-100 hover:bg-gray-200 font-semibold px-3 py-5 cursor-pointer text-center"
+            onClick={() => history.push(String(link))}
           >
             {icon}
             <div className="text-center mt-3 text-sm">{name}</div>

@@ -9,7 +9,7 @@ export default function MauNyuci(): JSX.Element {
   const history = useHistory();
 
   const [address, setAddress] = useState(
-    ' Apartemen Mansion City Lantai 7 No. 32, Jalan Rumput Hijau Kav. 18, Matraman, Jakarta Timur, 13120',
+    'Apartemen Mansion City Lantai 7 No. 32, Jalan Rumput Hijau Kav. 18, Matraman, Jakarta Timur, 13120',
   );
 
   const [isProceed, setIsProceed] = useState(false);
