@@ -1,5 +1,5 @@
-import { Route, Switch } from 'react-router-dom';
-import { Suspense, useEffect } from 'react';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import { Suspense, useEffect, useState } from 'react';
 import {
   customerRoutes,
   employeeRoutes,
@@ -14,8 +14,27 @@ import PrivateRoute from './components/Route/PrivateRoute';
 import useAuth from './hooks/useAuth';
 
 function App(): JSX.Element {
+  const location = useLocation();
+
   const { checkToken } = useAuth();
   const user = useAppSelector((state) => state.user.user);
+
+  const [isBottomBarShow, setIsBottomBarShow] = useState(false);
+
+  useEffect(() => {
+    if (
+      [
+        '/customer',
+        '/customer/laundry',
+        '/customer/history',
+        '/customer/account',
+      ].includes(location.pathname)
+    ) {
+      setIsBottomBarShow(true);
+    } else {
+      setIsBottomBarShow(false);
+    }
+  }, [location.pathname]);
 
   useEffect(() => checkToken(), [checkToken]);
 
@@ -62,7 +81,9 @@ function App(): JSX.Element {
           ))}
         </Switch>
 
-        {user.role?.type === 'customer' && <CustomerNavigation />}
+        {user.role?.type === 'customer' && isBottomBarShow && (
+          <CustomerNavigation />
+        )}
       </Suspense>
     </Container>
   );

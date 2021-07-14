@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -86,6 +87,13 @@ function Row(props: Props) {
         <TableCell align="right">
           {row.harga.toLocaleString().replace(',', '.')}
         </TableCell>
+        <TableCell>
+          {row.status === 3 && (
+            <Button variant="contained" size="small" color="secondary">
+              <strong>Minta Antarkan</strong>
+            </Button>
+          )}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -131,10 +139,10 @@ function Row(props: Props) {
 }
 
 const rows = [
-  createData('2021-07-18', 3),
-  createData('2021-07-20', 2),
-  createData('2021-07-22', 1),
   createData('2021-07-30', 0),
+  createData('2021-07-22', 1),
+  createData('2021-07-20', 2),
+  createData('2021-07-20', 3),
 ];
 
 export default function CustomerLaundry(): JSX.Element {
@@ -160,9 +168,10 @@ export default function CustomerLaundry(): JSX.Element {
               <TableCell align="center">
                 <strong>Status</strong>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="center">
                 <strong>Total Harga (Rp)</strong>
               </TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

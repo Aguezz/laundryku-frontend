@@ -43,6 +43,7 @@ function CustomerHome(): JSX.Element {
         <Card
           variant="outlined"
           className="shadow-lg font-semibold text-sm bg-gray-100 hover:bg-gray-200 px-3 py-5 text-center"
+          onClick={() => history.push('/customer/mau-nyuci')}
         >
           <div>
             <LocalLaundryServiceTwoToneIcon className="text-green-500" />
@@ -52,6 +53,7 @@ function CustomerHome(): JSX.Element {
         <Card
           variant="outlined"
           className="shadow-lg font-semibold text-sm bg-gray-100 hover:bg-gray-200 px-3 py-5 text-center"
+          onClick={() => history.push('/customer/daftar-harga')}
         >
           <div>
             <ListAltTwoToneIcon className="text-green-500" />

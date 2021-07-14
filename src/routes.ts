@@ -1,20 +1,20 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-
-const AutoRedirect = React.lazy(() => import('./components/Route/AutoRedirect'));
-const CustomerAccount = React.lazy(() => import('./pages/customer/Account'));
-const CustomerLaundry = React.lazy(() => import('./pages/customer/Laundry'));
-const CustomerHistory = React.lazy(() => import('./pages/customer/History'));
-const CustomerHome = React.lazy(() => import('./pages/customer/Home'));
-const EmployeeHome = React.lazy(() => import('./pages/employee/Home'));
-const ForgotPasswordPage = React.lazy(() => import('./pages/auth/ForgotPassword'));
-const LoginPage = React.lazy(() => import('./pages/auth/LoginPage'));
-const LogoutPage = React.lazy(() => import('./pages/auth/LogoutPage'));
+import AutoRedirect from'./components/Route/AutoRedirect'
+import CustomerAccount from'./pages/customer/Account'
+import CustomerDaftarHarga from'./pages/customer/DaftarHarga'
+import CustomerHistory from'./pages/customer/History'
+import CustomerHome from'./pages/customer/Home'
+import CustomerLaundry from'./pages/customer/Laundry'
+import CustomerMauNyuci from'./pages/customer/MauNyuci'
+import EmployeeHome from'./pages/employee/Home'
+import ForgotPasswordPage from'./pages/auth/ForgotPassword'
+import LoginPage from'./pages/auth/LoginPage'
+import LogoutPage from'./pages/auth/LogoutPage'
 
 interface Route {
   exact: boolean;
   path: string;
-  component: React.LazyExoticComponent<() => JSX.Element>;
+  component: () => JSX.Element | null;
 }
 
 export const publicRoutes: Array<Route> = [
@@ -36,4 +36,7 @@ export const customerRoutes: Array<Route> = [
   { path: '/customer/laundry', exact: true, component: CustomerLaundry },
   { path: '/customer/history', exact: true, component: CustomerHistory },
   { path: '/customer/account', exact: true, component: CustomerAccount },
+
+  { path: '/customer/mau-nyuci', exact: true, component: CustomerMauNyuci },
+  { path: '/customer/daftar-harga', exact: true, component: CustomerDaftarHarga },
 ];
